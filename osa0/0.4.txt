@@ -1,0 +1,8 @@
+title Tehtävä 0.4
+Käyttäjä->Selain: Mennään osoitteeseen ...kuapp.com/notes \n ja ollaan tehtävän 0.3 tilanteessa
+Käyttäjä->Selain: Kirjoitetaan tekstikenttään syöte ja \n painetaan Talleta
+Selain->Palvelin: tehdään POST-tyyppinen pyyntö osoitteeseen \n kuapp.com/new_note
+note left of Palvelin: Palvelin kirjoittaa käyttäjän antaman syötteen talteen
+Palvelin->Selain: Palautetaan status 302 (found) ja location ...kuapp.com/notes
+note left of Selain: Tehdään tehtävän 0.3 prosessi uudestaan ja data.json \n tiedosto sisältää nyt käyttäjän antaman syötteen
+

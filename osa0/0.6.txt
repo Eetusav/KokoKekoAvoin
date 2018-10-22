@@ -1,0 +1,13 @@
+title Tehtävä 0.6
+note right of kayttaja
+  Jatketaan edellisen tehtävän 0.5 tilanteesta
+end note
+
+kayttaja->selain: Käyttäjä kirjoittaa tekstikenttään syötteen ja painaa \n Talleta painiketta.
+
+selain->palvelin: POST ...kuapp.com/new_note_spa
+note left of palvelin
+  Palvelin saa syötteen sisällön contest kentässä 
+  ja kirjoittaa sen talteen
+end note
+palvelin->selain: palautetaan status 201 (created)

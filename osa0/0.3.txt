@@ -1,0 +1,14 @@
+title Teht‰v‰ 0.3
+
+Kayttaja->Selain: Kayttaja menee osoitteeseen \n fullstack-exampleapp.herokuapp.com/notes
+Selain->Palvelin: Selain tekee get-tyyppisen pyynnˆn \n url:iin fullstack-exampleapp.herokuapp.com/notes
+Palvelin->Selain: Palvelin palauttaa status 200 (OK) ja html koodin
+Selain->Palvelin: GET ...kuapp.com/main.css
+Palvelin->Selain: palautetaan status 200 (OK) ja tyylitiedosto.
+Selain-> Palvelin: GET ...kuapp.com/main.js
+Palvelin->Selain: palautetaan status 200 (OK) ja javascript tiedosto
+Selain->Palvelin: GET ...kuapp.com/data.json
+Palvelin->Selain: palautetaan status 200 (OK) ja data json muodossa.
+note left of Selain
+ Selain n‰ytt‰‰ palvelimen palauttaman html:n \n joka on tyylitiedoston main.css mukainen
+end note
