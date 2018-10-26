@@ -1,0 +1,8 @@
+POST https://still-beach-89996.herokuapp.com/api/persons
+content-type: application/json
+
+{
+    "id": 6,
+    "name": "Testi jäbä",
+    "number": "040-5555555"
+}

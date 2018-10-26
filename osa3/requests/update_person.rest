@@ -1,0 +1,7 @@
+PATCH http://localhost:3001/api/persons/5bd3124fbc9b6f3ba0b4b059
+content-type: application/json
+
+{
+    "name": "Uusi Henk",
+    "number": "040-99999999999"
+}

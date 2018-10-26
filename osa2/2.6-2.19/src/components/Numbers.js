@@ -20,9 +20,9 @@ const Person = ({ person, deletePerson }) => {
     return (
         <tr>
             <td>{person.name}</td>
-            <td>{person.number}</td>     
+            <td>{person.number}</td>
 			<td>
-                <button onClick={deletePerson(person.id, person.name)}>Poista</button>
+                <button onClick={deletePerson(person._id, person.name)}>Poista</button>
             </td>			
         </tr>
     )

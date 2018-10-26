@@ -20,7 +20,7 @@ class App extends React.Component {
   componentDidMount() {
     console.log('did mount')
     axios
-      .get('http://localhost:3001/api/persons')
+      .get('/api/persons')
       .then(response => {
         console.log('promise fulfilled')
         this.setState({ persons: response.data })
@@ -57,15 +57,19 @@ class App extends React.Component {
       person => person.name === this.state.newName
     )
 
+
     if (personInList) {
       if (window.confirm(personObject.name + " on jo lisättynä. Korvataanko vanha numero uudella?")) {
-        Service.update(personInList.id, personObject).then(response => {
-          this.setState({
-            newName: "uusi nimi...",
-            newNumber: "uusi numero...",
+        Service.update(personInList._id, personObject).then(response => {
+          this.setState(prevState => ({  
+            newName: 'Uusi nimi',
+            newNumber: 'Uusi numero...',          
             error: 'Henkilön päivitys onnistui.',
-            persons: this.state.persons
-          })
+            persons: prevState.persons.map(
+              person => (person._id === personObject.id ? personObject : person)
+            )
+                
+        }))
         }).catch(error => {
           console.log("Muutettavaksi yritettävän henkilön tiedot on jo poistettu.")
           this.setState({
@@ -101,21 +105,21 @@ class App extends React.Component {
 
   deletePerson = (id, name) => {
     return () => {
-      console.log("Poiston target", name, id)
       if (window.confirm("Poistetaanko henkilö nimeltään: " + name)) {
+        Service.remove(id)
+        console.log("ID: ", id)
+        
         Service.remove(id).then(response => {
-          this.setState({
-            error: 'Henkilön poisto onnistui.',
-            persons: this.state.persons.filter(person => person.id !== id)
-          })
-          //                      this.notify("poistettiin " + name)
-          console.log("person removed")
+          this.setState(prevState => ({            
+              error: 'Henkilön poisto onnistui.',
+              persons: prevState.persons.filter(person => person._id !== id)            
+          }))
         })
           .catch(error => {
             console.log("Henkilön poistossa meni jotain vikaan")
             this.setState({
-              error: 'Henkilön poistossa meni jotain vikaan.',
-              persons: this.state.persons.filter(person => person.id !== id)
+              error: 'Henkilön poistossa meni jotain vikaan.'
+             // persons: this.state.persons.filter(person => person.id !== id)
             })
           })
       }
