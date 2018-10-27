@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
-const url = 'mongodb://dbuser:Heinakuu11@ds235251.mlab.com:35251/fullstack-persons'
+const url = process.env.MONGODB_URI
 const Schema = mongoose.Schema
+if ( process.env.NODE_ENV !== 'production' ) {
+    require('dotenv').config()
+  }
+  
+  const url = process.env.MONGODB_URI
 mongoose.connect(url)
 
 //const Person = mongoose.model('Person', {
