@@ -76,11 +76,10 @@ app.get('/api/persons/:id', (request, response) => {
 }
     //  }
 )
-app.get('/info', (request, response) => {
+app.get('/info/', (request, response) => {
     Person.count({}, function( err, count){
-        response.send('Puhelinluettelossa on ' + count + ' henkilön tiedot.')
+       return response.send('Puhelinluettelossa on ' + count + ' henkilön tiedot.')
     })
-    
 })
 app.delete('/api/persons/:id', (request, response) => {
     Person.findByIdAndDelete(request.params.id).then(person => {
