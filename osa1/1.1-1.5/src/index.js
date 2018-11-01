@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
   const Otsikko = ({kurssi}) => (
     <h1>{kurssi}</h1>
 )
-  const Osa = ({osa}, {tehtavia}) => (
+  const Osa = ({osa, tehtavia}) => (
 	<p>{osa} {tehtavia}</p>
 )
   const Sisalto = ({osat}) => (
