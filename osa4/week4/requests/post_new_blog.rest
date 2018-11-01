@@ -1,0 +1,9 @@
+POST http://localhost:3006/api/blogs
+content-type: application/json
+
+{
+    "title": "Terveppä terve!",
+    "author": "Heikki Heikkila",
+    "url": "www.google.com",
+    "likes": 4
+}
