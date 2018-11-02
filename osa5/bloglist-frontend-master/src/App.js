@@ -2,6 +2,7 @@ import React from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Notification from './components/Notification'
 
 class App extends React.Component {
   constructor(props) {
@@ -53,8 +54,12 @@ class App extends React.Component {
     console.log('try create new blog', newBlogToBeAdded)
     const blog = await blogService.create(newBlogToBeAdded)
     this.setState(prev => ({
-      blogs: [...prev.blogs, blog]
+      blogs: [...prev.blogs, blog],
+      error: 'Uusi blogi ' + blog.title + ' lisätty. ' + 'Kirjoittajana ' + blog.author
     }))
+    setTimeout(() => {
+      this.setState({ error: null })
+    }, 5000)
   }
 
   handleBlogTitleChange = (event) => {
@@ -143,6 +148,7 @@ class App extends React.Component {
       <div>
         {this.state.user === null && loginForm()}
         {this.state.user !== null && kirjautuneena()}
+        <Notification message={this.state.error} />
         <h2>blogs</h2>
         {this.state.blogs.map(blog =>
           <Blog key={blog._id} blog={blog} />
