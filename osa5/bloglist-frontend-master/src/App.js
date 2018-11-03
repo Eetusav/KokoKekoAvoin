@@ -81,17 +81,26 @@ class App extends React.Component {
   handleUsernameChange = (event) => {
     this.setState({ username: event.target.value })
   }
-  componentDidMount() {
+  async componentDidMount() {
     console.log('mountataan')
-    blogService.getAll().then(blogs =>
-      this.setState({ blogs })
-    )
+    //blogService.getAll().then(blogs =>
+    //  this.setState({ blogs })
+    //)
+    const blogs = await blogService.getAll()
+    blogs.sort((a, b) => b.likes - a.likes)
+    this.setState({blogs})
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       this.setState({ user })
       blogService.setToken(user.token)
     }
+  }
+  blogLike = async blog => {
+    const lisattava = await blogService.update({...blog, likes: blog.likes+1})
+    this.setState(prev => ({
+      blogs: prev.blogs.map(blog => blog._id ===lisattava._id ? {...blog, likes: lisattava.likes} : blog)
+    }))
   }
 
 
@@ -164,7 +173,8 @@ class App extends React.Component {
         <Notification message={this.state.error} />
         <h2>blogs</h2>
         {this.state.blogs.map(blog =>
-          <Blog key={blog._id} blog={blog} />
+          <Blog key={blog._id} blog={blog} onLike={this.blogLike}
+          />
         )}
         {blogForm()}
       </div>
