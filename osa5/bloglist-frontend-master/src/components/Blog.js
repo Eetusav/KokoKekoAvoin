@@ -8,6 +8,10 @@ class Blog extends React.PureComponent {
     console.log('liketetty')
     this.props.onLike(this.props.blog)
   }
+  handleDelete = () => {
+    console.log('poistettu')
+    this.props.onDelete(this.props.blog)
+  }
 
   render() {
     const a = 1
@@ -25,7 +29,9 @@ class Blog extends React.PureComponent {
             <div>
               {blog.likes} likes <button type="button" onClick={this.handleLike}>like</button>
             </div>
-            
+            <div>
+               <button type="button" onClick={this.handleDelete}>Delete</button>
+            </div>
           </div>
         
       </div>

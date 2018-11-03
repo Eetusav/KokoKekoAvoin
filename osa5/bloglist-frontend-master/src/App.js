@@ -102,6 +102,17 @@ class App extends React.Component {
       blogs: prev.blogs.map(blog => blog._id ===lisattava._id ? {...blog, likes: lisattava.likes} : blog)
     }))
   }
+  blogDelete = async ({_id, title, author}) => {
+    if (window.confirm(`delete '${title}' by ${author} ?`)){
+      await blogService.deleteOne(_id)
+      this.setState(prev=> ({
+        blogs: prev.blogs.filter(blog=>blog._id !== _id)
+      }))
+    } else {
+      return
+    }
+
+  }
 
 
   render() {
@@ -173,7 +184,7 @@ class App extends React.Component {
         <Notification message={this.state.error} />
         <h2>blogs</h2>
         {this.state.blogs.map(blog =>
-          <Blog key={blog._id} blog={blog} onLike={this.blogLike}
+          <Blog key={blog._id} blog={blog} onLike={this.blogLike} onDelete={this.blogDelete}
           />
         )}
         {blogForm()}
