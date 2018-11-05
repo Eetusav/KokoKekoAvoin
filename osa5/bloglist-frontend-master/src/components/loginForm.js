@@ -24,4 +24,4 @@ const loginForm = () => (
       </form></div>
   )
 
-  export default loginForm;
+  //export default loginForm;

@@ -88,7 +88,7 @@ class App extends React.Component {
     //)
     const blogs = await blogService.getAll()
     blogs.sort((a, b) => b.likes - a.likes)
-    this.setState({blogs})
+    this.setState({ blogs })
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -97,16 +97,16 @@ class App extends React.Component {
     }
   }
   blogLike = async blog => {
-    const lisattava = await blogService.update({...blog, likes: blog.likes+1})
+    const lisattava = await blogService.update({ ...blog, likes: blog.likes + 1 })
     this.setState(prev => ({
-      blogs: prev.blogs.map(blog => blog._id ===lisattava._id ? {...blog, likes: lisattava.likes} : blog)
+      blogs: prev.blogs.map(blog => blog._id === lisattava._id ? { ...blog, likes: lisattava.likes } : blog)
     }))
   }
-  blogDelete = async ({_id, title, author}) => {
-    if (window.confirm(`delete '${title}' by ${author} ?`)){
+  blogDelete = async ({ _id, title, author }) => {
+    if (window.confirm(`delete '${title}' by ${author} ?`)) {
       await blogService.deleteOne(_id)
-      this.setState(prev=> ({
-        blogs: prev.blogs.filter(blog=>blog._id !== _id)
+      this.setState(prev => ({
+        blogs: prev.blogs.filter(blog => blog._id !== _id)
       }))
     } else {
       return
@@ -177,6 +177,15 @@ class App extends React.Component {
         <button type="submit">lisää blogi</button>
       </form>
     )
+    if (!this.state.user) {
+      return (
+        <div>
+          {this.state.user === null && loginForm()}
+          {this.state.user !== null && kirjautuneena()}
+          <Notification message={this.state.error} />
+        </div>
+      )
+    }
     return (
       <div>
         {this.state.user === null && loginForm()}
