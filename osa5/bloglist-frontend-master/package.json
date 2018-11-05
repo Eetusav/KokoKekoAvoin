@@ -18,8 +18,10 @@
   },
   "proxy": "http://localhost:3003",
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "jest-localstorage-mock": "^2.3.0"
   }
 }
