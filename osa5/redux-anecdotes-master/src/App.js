@@ -1,20 +1,29 @@
 import React from 'react';
 
 
+
 class App extends React.Component {
+  klik = (nappi, anecdote) => () => {
+    console.log('Nappia painettu', nappi)
+    //reducer(palautteet, nappi)
+    this.props.store.dispatch({type: nappi, anecdote: anecdote.id})
+    console.log('store', this.props.store.getState())
+  }
+
+
   render() {
     const anecdotes = this.props.store.getState()
     return (
       <div>
         <h2>Anecdotes</h2>
-        {anecdotes.map(anecdote=>
+        {anecdotes.sort((a,b) => b.votes - a.votes).map(anecdote=>
           <div key={anecdote.id}>
             <div>
               {anecdote.content} 
             </div>
             <div>
               has {anecdote.votes}
-              <button>vote</button>
+              <button onClick={this.klik('VOTE', anecdote)}>vote</button>
             </div>
           </div>
         )}
